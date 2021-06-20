@@ -1,0 +1,90 @@
+﻿@using Oxxy_Teste.ViewModels;
+@model VeiculosVM
+@{
+    ViewBag.Title = "Cadastro";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Cadastrar Novo Veículo</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="form-group">
+                <label for="">Placa</label>
+                @Html.TextBoxFor(model => model.placa, new { @class = "form-control", @placeholder = "Digite a placa", @style = "width:400px;" })
+            </div>
+            <div class="form-group">
+                <label for="">Renavam</label>
+                @Html.TextBoxFor(model => model.renavam, new { @class = "form-control", @placeholder = "Digite o renavam", @style = "width:400px;" })
+            </div>
+            <div class="form-group">
+                <label for="">Cpf</label>
+                @Html.TextBoxFor(model => model.cpf, new { @class = "form-control", @placeholder = "Digite o CPF", @style = "width:400px;" })
+            </div>
+            <div class="form-group">
+                <label for="">Proprietário</label>
+                @Html.DropDownListFor(model => model.idProprietario, new SelectList(Model.ListaProprietarios, "id", "NomeProprietario", 1), "Selecione", new { @class = "form-control", @placeholder = "Digite o CPF", @style = "width:400px;" })
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">File input</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="image">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-check">
+                <label for="">Bloqueado</label>
+                @Html.CheckBoxFor(model => model.bloqueado, new { @class = "form-control", @style = "width:20px;" })
+            </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary btnSalvar">Submit</button>
+        </div>
+    }
+</div>
+<!-- /.card -->
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/adminlte/js")
+@Styles.Render("~/Content/css")
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js" type="text/javascript"></script>
+
+<script>
+
+    //$('.btnSalvar').on('click', function (e) {
+
+    //});
+    $('.btnSalvar').on('click', function (e) {
+        e.preventDefault();
+        var form = $(this).parents('form');
+        swal({
+            title: "Confirma?",
+            text: "Confirma a inserção do novo veículo?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim!",
+            closeOnConfirm: false
+        }, function (isConfirm) {
+                if (isConfirm) {
+                    form.submit()
+                };
+        });
+    });
+
+</script>
